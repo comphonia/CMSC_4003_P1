@@ -11,7 +11,7 @@ session_start();
 require_once __DIR__ . '/../Configs/dbCredentials.php';
 require_once __DIR__ . '/../Configs/Database.php';
 require_once __DIR__ . '/../Models/User.php';
-require_once 'whoami.php';
+require_once __DIR__ . '/../Models/UserSession.php';
 
 $formController = new FormController($dbCredentials);
 
@@ -46,17 +46,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET)) {
             $formController->resetUserPassword(urlencode($_GET['id']));
     }
 
+
 }
 
 class FormController
 {
     private $User;
+    private $UserSession;
     public $userData;
 
     function __construct($dbCredentials)
     {
         $db = new Database($dbCredentials);
         $this->User = new User($db->GetDb());
+        $this->UserSession = new UserSession($db->GetDb());
+
         if (isset($_SESSION["userData"])) {
             $this->userData = $_SESSION["userData"];
         }
@@ -74,10 +78,13 @@ class FormController
         if (empty($password)) {
             $this->throwError("Please enter a valid password");
         }
+        //create new session id
+        $sessionid = md5(uniqid(rand()));
+
         // verify if user exists
-        if ($this->User->verifyUser($id, md5($password))) {
+        if ($this->User->verifyUser($id, md5($password)) && $this->UserSession->createUserSession($id, $sessionid)) {
             $_SESSION["userData"] = $this->User->getUserById($id);
-            header("Location: /user.php?role=" . $this->userData['role']);
+            header("Location: /user.php?role=" . $this->userData['role'] . "&sessionid=" . $sessionid);
             exit(0);
         } else {
             $this->throwError("Could not find user with that combination");
@@ -119,6 +126,7 @@ class FormController
         }
 
         if ($this->User->updateUser($id, [$firstname, $lastname, $role])) {
+            $_SESSION["userData"] = $this->User->getUserById($id);
             header("Location: /admin.php");
             exit(0);
         } else {
@@ -159,7 +167,12 @@ class FormController
     // deletes a user from the database
     function deleteUser($id)
     {
-        return $this->User->deleteUser($id);
+        // if user deletes self
+        if ($this->User->deleteUser($id) && $id == $this->userData['user_id']) {
+            // log-out current user
+            $_SESSION = null;
+            $this->throwError("Your account has been deleted");
+        }
     }
 
     // resets a user password to a default one
@@ -182,6 +195,20 @@ class FormController
     function isAdmin()
     {
         return $this->userData['role_id'] == 2 || $this->userData['role_id'] == 3;
+    }
+
+    function verifySession($currSession)
+    {
+        if (!$this->UserSession->verifySession($currSession)) {
+            header("Location: index.php?logout=true");
+            exit(0);
+        }
+        return $currSession;
+    }
+
+    public function deleteSession($user_id)
+    {
+        return $this->UserSession->deleteSession($user_id);
     }
 
 

@@ -5,6 +5,18 @@ $query = "";
 if (isset($_GET['query'])) {
     $query = urlencode($_GET['query']);
 }
+
+$currSession = "";
+if (isset($_GET['sessionid'])) {
+    $currSession = $_GET['sessionid'];
+}
+$formController->verifySession($currSession);
+
+// if user is not an admin, send them to the student page
+if(!$formController->isAdmin()){
+    header("Location: user.php?sessionid=" . $currSession);
+    exit(0);
+}
 ?>
 
 <!doctype html>
@@ -25,13 +37,13 @@ if (isset($_GET['query'])) {
 
 <body>
 <header>
-    <a href="/" style="text-decoration: none"><h2 class="title">
+    <a href="/index.php?sessionid=<?php echo $currSession; ?>" style="text-decoration: none"><h2 class="title">
             <span class="logo"><img src="assets/images/uni_logo.png"></span> Springfield University</h2>
     </a>
     <nav class="active">
         <ul>
-            <li><a href="/user.php">Student</a></li>
-            <li><a href="/admin.php" class="active">Administrator</a></li>
+            <li><a href="/user.php?sessionid=<?php echo $currSession; ?>">Student</a></li>
+            <li><a href="/admin.php?sessionid=<?php echo $currSession; ?>" class="active">Administrator</a></li>
         </ul>
     </nav>
 </header>
@@ -204,6 +216,7 @@ if (isset($_GET['query'])) {
     }
 
     function addUserModal(_id) {
+        _id++;
         modalTitle.innerHTML = "Add User id: " + _id;
         id.value = _id;
         id2.value = _id;

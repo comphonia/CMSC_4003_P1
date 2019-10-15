@@ -26,9 +26,8 @@ class User
     //verifies if user exists
     public function verifyUser($id, $password)
     {
-        $stmt = $this->conn->prepare("SELECT `user_id`, `firstname`, `lastname`, `role_name` as role
-                                        FROM `User` U
-                                        JOIN  `Role` R on U.role_id = R.role_id
+        $stmt = $this->conn->prepare("SELECT `user_id`
+                                        FROM `User` 
                                         WHERE `user_id` = ? AND `password` = ?");
 
         $stmt->bindParam(1, $id);

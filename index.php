@@ -1,5 +1,19 @@
 <?php
 include_once('Controllers/FormController.php');
+
+if (isset($_GET['logout'])) {
+    $uid = -1;
+    if (isset($formController->userData['user_id']))
+        $uid = $formController->userData['user_id'];
+    if ($_GET['logout'] == "true")
+        $formController->deleteSession($uid);
+}
+
+$currSession = "";
+if (isset($_GET['sessionid'])) {
+    $currSession = $_GET['sessionid'];
+}
+
 ?>
 
 <!doctype html>
@@ -19,13 +33,13 @@ include_once('Controllers/FormController.php');
 
 <body>
 <header>
-    <a href="/" style="text-decoration: none"><h2 class="title">
+    <a href="/index.php?sessionid=<?php echo $currSession; ?>" style="text-decoration: none"><h2 class="title">
             <span class="logo"><img src="assets/images/uni_logo.png"></span> Springfield University</h2>
     </a>
     <nav>
         <ul>
-            <li><a href="/user.php">Student</a></li>
-            <li><a href="/admin.php">Administrator</a></li>
+            <li><a href="/user.php?sessionid=<?php echo $currSession; ?>">Student</a></li>
+            <li><a href="/admin.php?sessionid=<?php echo $currSession; ?>">Administrator</a></li>
         </ul>
     </nav>
 </header>

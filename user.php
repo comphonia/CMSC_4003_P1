@@ -1,5 +1,12 @@
 <?php
 include_once('Controllers/FormController.php');
+
+$currSession = "";
+if (isset($_GET['sessionid'])) {
+    $currSession = $_GET['sessionid'];
+}
+$formController->verifySession($currSession);
+
 ?>
 
 <!doctype html>
@@ -19,13 +26,13 @@ include_once('Controllers/FormController.php');
 
 <body>
 <header>
-    <a href="/" style="text-decoration: none"><h2 class="title">
+    <a href="/index.php?sessionid=<?php echo $currSession; ?>" style="text-decoration: none"><h2 class="title">
             <span class="logo"><img src="assets/images/uni_logo.png"></span> Springfield University</h2>
     </a>
     <nav class="active">
         <ul>
-            <li><a href="/user.php" class="active">Student</a></li>
-            <li><a href="/admin.php">Administrator</a></li>
+            <li><a href="/user.php?sessionid=<?php echo $currSession; ?>" class="active">Student</a></li>
+            <li><a href="/admin.php?sessionid=<?php echo $currSession; ?>">Administrator</a></li>
         </ul>
     </nav>
 </header>
@@ -36,14 +43,15 @@ include_once('Controllers/FormController.php');
             <?php
             echo "
             <h2>Welcome, {$formController->userData["firstname"]} </h2>
-            <p>Id: {$formController->userData["role_id"]}</p>
+            <p>Id: {$formController->userData["user_id"]}</p>
             <p class=\" mb-5\">Role: {$formController->userData["role"]}</p>
             "
             ?>
-            <?php echo $formController->isAdmin() ? "<a href='admin.php' class=\"btn btn-info mr-3\">Manage Users</a>" : ""; ?>
+            <?php echo $formController->isAdmin() ? "<a href='admin.php?sessionid=$currSession' class=\"btn btn-info mr-3\">Manage Users</a>" : ""; ?>
             <button class="btn" data-toggle="modal" data-target="#modalForm">Change Password</button>
 
-            <button class="btn btn-danger mt-4 d-block">Logout</button>
+            <a href="index.php?logout=true" ><button class="btn btn-danger mt-4 d-block">Logout</button></a>
+
         </div>
     </div>
 
