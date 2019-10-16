@@ -56,5 +56,18 @@ class UserSession
         return $stmt->execute();
     }
 
+        // returns current users session
+        public function getSessionById($id)
+        {
+            $stmt = $this->conn->prepare("SELECT `session_id`
+                                        FROM `UserSession` 
+                                        WHERE `user_id` = ?");
+
+        $stmt->bindParam(1, $id);
+        $result = $stmt->execute();
+
+        if($result)
+            return $result['session_id'];
+        }
 
 }

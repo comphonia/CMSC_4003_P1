@@ -8,6 +8,10 @@ session_start();
     - liaison to the data Models
 */
 
+define('__SUB__' , 'localhost:8080');
+
+echo __SUB__ . "--sub";
+
 require_once __DIR__ . '/../Configs/dbCredentials.php';
 require_once __DIR__ . '/../Configs/Database.php';
 require_once __DIR__ . '/../Models/User.php';
@@ -84,6 +88,7 @@ class FormController
         // verify if user exists
         if ($this->User->verifyUser($id, md5($password)) && $this->UserSession->createUserSession($id, $sessionid)) {
             $_SESSION["userData"] = $this->User->getUserById($id);
+            $_SESSION["sessionid"] = $sessionid;
             header("Location: /user.php?role=" . $this->userData['role'] . "&sessionid=" . $sessionid);
             exit(0);
         } else {

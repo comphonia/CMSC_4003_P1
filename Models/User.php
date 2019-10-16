@@ -1,21 +1,21 @@
 <?php
 /*
- User.php
- Defines a User Model
-*/
+User.php
+Defines a User Model
+ */
 
 class User
 {
     private $conn;
     private $defaultPass;
 
-    function __construct($db)
+    public function __construct($db)
     {
         $this->conn = $db;
         $this->defaultPass = md5(1);
     }
 
-    function __destruct()
+    public function __destruct()
     {
         //close connection
         $this->conn = null;
@@ -27,15 +27,16 @@ class User
     public function verifyUser($id, $password)
     {
         $stmt = $this->conn->prepare("SELECT `user_id`
-                                        FROM `User` 
+                                        FROM `User`
                                         WHERE `user_id` = ? AND `password` = ?");
 
         $stmt->bindParam(1, $id);
         $stmt->bindParam(2, $password);
         $stmt->execute();
 
-        if ($stmt->rowCount() > 0)
+        if ($stmt->rowCount() > 0) {
             return true;
+        }
 
         return false;
     }
@@ -75,20 +76,22 @@ class User
 
         $result = $stmt->fetch();
 
-        if ($result)
+        if ($result) {
             return $result["id"];
+        }
+
     }
 
     // search users in db
-    function searchUser($query)
+    public function searchUser($query)
     {
         $stmt = $this->conn->prepare("SELECT `user_id`, `firstname`, `lastname`, U.role_id, `role_name` as role
                                         FROM `User` U
                                         JOIN  `Role` R on U.role_id = R.role_id
-                                        WHERE `user_id` LIKE CONCAT('%', :query, '%') 
-                                        OR `firstname` LIKE CONCAT('%', :query, '%') 
+                                        WHERE `user_id` LIKE CONCAT('%', :query, '%')
+                                        OR `firstname` LIKE CONCAT('%', :query, '%')
                                         OR `lastname` LIKE CONCAT('%', :query, '%')
-                                        OR `role_name` LIKE CONCAT('%', :query, '%') 
+                                        OR `role_name` LIKE CONCAT('%', :query, '%')
                                         ");
 
         $stmt->bindParam(":query", $query);
@@ -98,9 +101,9 @@ class User
     }
 
     // adds a new user to the database
-    function createUser($body)
+    public function createUser($body)
     {
-        $stmt = $this->conn->prepare("INSERT INTO `User` 
+        $stmt = $this->conn->prepare("INSERT INTO `User`
                                       VALUES (null, ?, ?, ?, ?)");
 
         $stmt->bindParam(1, $body[0]);
@@ -111,9 +114,9 @@ class User
     }
 
     // updates a user based on their id
-    function updateUser($id, $body)
+    public function updateUser($id, $body)
     {
-        $stmt = $this->conn->prepare("UPDATE `User` 
+        $stmt = $this->conn->prepare("UPDATE `User`
                                       SET `firstname` = ? , `lastname` = ? , `role_id` = ?
                                         WHERE `user_id` = ?");
 
@@ -125,7 +128,7 @@ class User
     }
 
     // deletes a user from the database
-    function deleteUser($id)
+    public function deleteUser($id)
     {
         $stmt = $this->conn->prepare("DELETE FROM `User`
                                         WHERE `user_id` = ?");
@@ -135,24 +138,23 @@ class User
     }
 
     // updates a user's password based on their id
-    function updatePassword($id, $newPassword)
+    public function updatePassword($id, $newPassword)
     {
-        $stmt = $this->conn->prepare("UPDATE `User` 
-                                      SET `password` = ? 
+        $stmt = $this->conn->prepare("UPDATE `User`
+                                      SET `password` = ?
                                         WHERE `user_id` = ?");
 
         $stmt->bindParam(1, $newPassword);
         $stmt->bindParam(2, $id);
-
 
         return $stmt->execute();
 
     }
 
     // resets a user password to a default one
-    function resetUserPassword($id)
+    public function resetUserPassword($id)
     {
-        $stmt = $this->conn->prepare("UPDATE `User` 
+        $stmt = $this->conn->prepare("UPDATE `User`
                                       SET `password` = ?
                                         WHERE `user_id` = ?");
 
@@ -160,6 +162,5 @@ class User
         $stmt->bindParam(2, $id);
         return $stmt->execute();
     }
-
 
 }

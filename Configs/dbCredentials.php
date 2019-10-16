@@ -4,5 +4,5 @@ $dbCredentials = [
     "servername" => "localhost",
     "username" => "root",
     "password" => "",
-    "dbname" => "testdb"
+    "dbname" => "sudb"
 ];

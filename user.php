@@ -2,8 +2,8 @@
 include_once('Controllers/FormController.php');
 
 $currSession = "";
-if (isset($_GET['sessionid'])) {
-    $currSession = $_GET['sessionid'];
+if (isset($_SESSION["sessionid"])) {
+    $currSession = $_SESSION["sessionid"];
 }
 $formController->verifySession($currSession);
 

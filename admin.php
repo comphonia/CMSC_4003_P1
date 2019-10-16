@@ -7,8 +7,8 @@ if (isset($_GET['query'])) {
 }
 
 $currSession = "";
-if (isset($_GET['sessionid'])) {
-    $currSession = $_GET['sessionid'];
+if (isset($_SESSION["sessionid"])) {
+    $currSession = $_SESSION["sessionid"];
 }
 $formController->verifySession($currSession);
 
