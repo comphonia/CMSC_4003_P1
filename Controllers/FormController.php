@@ -202,6 +202,11 @@ class FormController
         return $this->userData['role_id'] == 2 || $this->userData['role_id'] == 3;
     }
 
+    function isStudentAdmin()
+    {
+        return $this->userData['role_id'] == 3;
+    }
+
     function verifySession($currSession)
     {
         if (!$this->UserSession->verifySession($currSession)) {

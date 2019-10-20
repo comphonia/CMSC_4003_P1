@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="821c1a1d-079e-4962-86f8-1e7d00109aa9" name="Default Changelist" comment="90% done, sessions need to be done next">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/UserSession.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/FormController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/FormController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user.php" beforeDir="false" afterPath="$PROJECT_DIR$/user.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,6 +50,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="C:/xampp/php/php.exe" />
@@ -106,7 +104,9 @@
       <workItem from="1571050716970" duration="77000" />
       <workItem from="1571050807290" duration="64000" />
       <workItem from="1571050884778" duration="1509000" />
-      <workItem from="1571052437254" duration="44691000" />
+      <workItem from="1571052437254" duration="44997000" />
+      <workItem from="1571168835433" duration="3634000" />
+      <workItem from="1571589525009" duration="3425000" />
     </task>
     <task id="LOCAL-00001" summary="90% done, sessions need to be done next">
       <created>1571134250285</created>
@@ -135,6 +135,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="90% done, sessions need to be done next" />
     <option name="LAST_COMMIT_MESSAGE" value="90% done, sessions need to be done next" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />

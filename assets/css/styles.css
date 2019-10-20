@@ -22,7 +22,7 @@ nav {
     border-bottom: 5px solid #e5e5e5;
 }
 
-nav.active{
+nav.active {
     border-bottom: 5px solid #D39E2C;
 }
 
@@ -44,11 +44,15 @@ nav ul {
 
 nav ul li {
     display: flex;
-     border-left: 2px solid #e5e5e5;
+    border-left: 2px solid #e5e5e5;
 }
 
 nav ul li:first-child {
-   
+
+}
+
+a {
+    text-decoration: none !important;
 }
 
 nav a,

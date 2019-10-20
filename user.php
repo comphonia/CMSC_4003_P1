@@ -7,6 +7,13 @@ if (isset($_SESSION["sessionid"])) {
 }
 $formController->verifySession($currSession);
 
+// if user and admin but is not a student-admin
+if($formController->isAdmin() && !$formController->isStudentAdmin() ){
+    header("Location: admin.php?sessionid=" . $currSession);
+    exit(0);
+}
+?>
+
 ?>
 
 <!doctype html>

@@ -60,7 +60,8 @@ class User
     {
         $stmt = $this->conn->prepare("SELECT `user_id`, `firstname`, `lastname`, U.role_id, `role_name` as role
                                         FROM `User` U
-                                        JOIN  `Role` R on U.role_id = R.role_id");
+                                        JOIN  `Role` R on U.role_id = R.role_id
+                                        ORDER BY `user_id`");
 
         $stmt->execute();
 
@@ -92,6 +93,7 @@ class User
                                         OR `firstname` LIKE CONCAT('%', :query, '%')
                                         OR `lastname` LIKE CONCAT('%', :query, '%')
                                         OR `role_name` LIKE CONCAT('%', :query, '%')
+                                        ORDER BY `user_id`
                                         ");
 
         $stmt->bindParam(":query", $query);

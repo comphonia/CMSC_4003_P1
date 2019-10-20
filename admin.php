@@ -13,7 +13,7 @@ if (isset($_SESSION["sessionid"])) {
 $formController->verifySession($currSession);
 
 // if user is not an admin, send them to the student page
-if(!$formController->isAdmin()){
+if (!$formController->isAdmin()) {
     header("Location: user.php?sessionid=" . $currSession);
     exit(0);
 }
@@ -51,6 +51,14 @@ if(!$formController->isAdmin()){
     <div class="shade"></div>
     <div class="content container mt-5">
         <div class="profilecard">
+            <?php
+            echo "
+            <h2>Welcome, {$formController->userData["firstname"]} </h2>
+            <p>Id: {$formController->userData["user_id"]}</p>
+            <p class=\"\">Role: {$formController->userData["role"]}</p>
+            <a href=\"index.php?logout=true\" ><button class=\"btn btn-danger mb-5\">Logout</button></a>
+            "
+            ?>
             <h2 class="mb-3">Manage Users</h2>
             <button class="btn btn-success" title="Add User" data-toggle="modal"
                     data-target="#modalForm"
