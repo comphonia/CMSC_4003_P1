@@ -10,14 +10,12 @@ session_start();
 
 define('__SUB__' , 'localhost:8080');
 
-echo __SUB__ . "--sub";
-
 require_once __DIR__ . '/../Configs/dbCredentials.php';
 require_once __DIR__ . '/../Configs/Database.php';
 require_once __DIR__ . '/../Models/User.php';
 require_once __DIR__ . '/../Models/UserSession.php';
 
-$formController = new FormController($dbCredentials);
+$formController = new FormController();
 
 // POST & GET valet
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST)) {
@@ -59,11 +57,10 @@ class FormController
     private $UserSession;
     public $userData;
 
-    function __construct($dbCredentials)
+    function __construct()
     {
-        $db = new Database($dbCredentials);
-        $this->User = new User($db->GetDb());
-        $this->UserSession = new UserSession($db->GetDb());
+        $this->User = new User();
+        $this->UserSession = new UserSession();
 
         if (isset($_SESSION["userData"])) {
             $this->userData = $_SESSION["userData"];
@@ -88,6 +85,7 @@ class FormController
         // verify if user exists
         if ($this->User->verifyUser($id, md5($password)) && $this->UserSession->createUserSession($id, $sessionid)) {
             $_SESSION["userData"] = $this->User->getUserById($id);
+            var_dump($_SESSION["userData"]);
             $_SESSION["sessionid"] = $sessionid;
             header("Location: /user.php?role=" . $this->userData['role'] . "&sessionid=" . $sessionid);
             exit(0);
@@ -228,7 +226,7 @@ class FormController
         $_SESSION["isError"] = true;
         $_SESSION["errorMsg"] = $err;
         http_response_code(400);
-        header("Location: /index.php");
+        header("Location: /index.php?logout=true");
         exit($err);
     }
 

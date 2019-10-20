@@ -2,7 +2,7 @@
 
 $dbCredentials = [
     "servername" => "localhost",
-    "username" => "root",
-    "password" => "",
+    "username" => "admin",
+    "password" => "pw",
     "dbname" => "sudb"
 ];

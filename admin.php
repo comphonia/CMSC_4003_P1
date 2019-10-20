@@ -56,10 +56,11 @@ if (!$formController->isAdmin()) {
             <h2>Welcome, {$formController->userData["firstname"]} </h2>
             <p>Id: {$formController->userData["user_id"]}</p>
             <p class=\"\">Role: {$formController->userData["role"]}</p>
-            <a href=\"index.php?logout=true\" ><button class=\"btn btn-danger mb-5\">Logout</button></a>
+            <a href=\"index.php?logout=true\" ><button class=\"btn btn-danger \">Logout</button></a>
+            <button class=\"btn\" data-toggle=\"modal\" data-target=\"#modalPassword\">Change Password</button>
             "
             ?>
-            <h2 class="mb-3">Manage Users</h2>
+            <h2 class="mb-3 mt-5">Manage Users</h2>
             <button class="btn btn-success" title="Add User" data-toggle="modal"
                     data-target="#modalForm"
                     onclick="addUserModal(<?php echo $formController->getLastInsertedId(); ?>)">Add New User
@@ -95,6 +96,7 @@ if (!$formController->isAdmin()) {
                 </thead>
                 <tbody>
                 <?php
+                if($formController->searchUser($query))
                 foreach ($formController->searchUser($query) as $user) {
                     $a = array($user["user_id"], $user["firstname"], $user["lastname"], $user["role_id"]);
                     $a = "'" . implode("','", $a) . "'";
@@ -113,7 +115,7 @@ if (!$formController->isAdmin()) {
                             </button>
                         </td> 
                     </tr>";
-                }
+                }else{echo "<tr class='text-center h4 text-muted'><th scope='row' colspan='5'>No users found</th> </tr>";}
                 ?>
 
 
@@ -159,6 +161,31 @@ if (!$formController->isAdmin()) {
                             </div>
                         </div>
                         <button type="submit" id="modalBtn" class="btn" name="update">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPassword" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Change Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="id" id="id"
+                                   value="<?php echo $formController->userData['user_id']; ?>">
+                            <label for="password">New Password:</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="">
+                        </div>
+                        <button type="submit" name="change" class="btn">Submit</button>
                     </form>
                 </div>
             </div>

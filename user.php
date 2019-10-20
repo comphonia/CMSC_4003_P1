@@ -14,8 +14,6 @@ if($formController->isAdmin() && !$formController->isStudentAdmin() ){
 }
 ?>
 
-?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -55,7 +53,7 @@ if($formController->isAdmin() && !$formController->isStudentAdmin() ){
             "
             ?>
             <?php echo $formController->isAdmin() ? "<a href='admin.php?sessionid=$currSession' class=\"btn btn-info mr-3\">Manage Users</a>" : ""; ?>
-            <button class="btn" data-toggle="modal" data-target="#modalForm">Change Password</button>
+            <button class="btn" data-toggle="modal" data-target="#modalPassword">Change Password</button>
 
             <a href="index.php?logout=true" ><button class="btn btn-danger mt-4 d-block">Logout</button></a>
 
@@ -63,7 +61,7 @@ if($formController->isAdmin() && !$formController->isStudentAdmin() ){
     </div>
 
 
-    <div class="modal fade" id="modalForm" tabindex="-1" role="dialog"
+    <div class="modal fade" id="modalPassword" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
