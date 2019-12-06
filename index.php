@@ -27,19 +27,20 @@ if (isset($_GET['sessionid'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/styles.css">
+	<base href="http://cs2.uco.edu/~gq001/su/">
 
     <title>Springfield University | Login</title>
 </head>
 
 <body>
 <header>
-    <a href="/index.php?sessionid=<?php echo $currSession; ?>" style="text-decoration: none"><h2 class="title">
+    <a href="http://cs2.uco.edu/~gq001/su/index.php?sessionid=<?php echo $currSession; ?>" style="text-decoration: none"><h2 class="title">
             <span class="logo"><img src="assets/images/uni_logo.png"></span> Springfield University</h2>
     </a>
     <nav>
         <ul>
-            <li><a href="/user.php?sessionid=<?php echo $currSession; ?>">Student</a></li>
-            <li><a href="/admin.php?sessionid=<?php echo $currSession; ?>">Administrator</a></li>
+            <li><a href="http://cs2.uco.edu/~gq001/su/user.php?sessionid=<?php echo $currSession; ?>">Student</a></li>
+            <li><a href="http://cs2.uco.edu/~gq001/su/admin.php?sessionid=<?php echo $currSession; ?>">Administrator</a></li>
         </ul>
     </nav>
 </header>

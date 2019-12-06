@@ -87,7 +87,7 @@ class FormController
             $_SESSION["userData"] = $this->User->getUserById($id);
             var_dump($_SESSION["userData"]);
             $_SESSION["sessionid"] = $sessionid;
-            header("Location: /user.php?role=" . $this->userData['role'] . "&sessionid=" . $sessionid);
+            header("Location: http://cs2.uco.edu/~gq001/su/user.php?role=" . $this->userData['role'] . "&sessionid=" . $sessionid);
             exit(0);
         } else {
             $this->throwError("Could not find user with that combination");
@@ -108,7 +108,7 @@ class FormController
         }
 
         if ($this->User->createUser([$firstname, $lastname, md5($password), $role])) {
-            header("Location: /admin.php");
+            header("Location: http://cs2.uco.edu/~gq001/su/admin.php");
             exit(0);
         } else {
             exit("Could not add user");
@@ -129,8 +129,8 @@ class FormController
         }
 
         if ($this->User->updateUser($id, [$firstname, $lastname, $role])) {
-            $_SESSION["userData"] = $this->User->getUserById($id);
-            header("Location: /admin.php");
+            //$_SESSION["userData"] = $this->User->getUserById($id);
+            header("Location: http://cs2.uco.edu/~gq001/su/admin.php");
             exit(0);
         } else {
             exit("Could not update user");
@@ -149,7 +149,7 @@ class FormController
         }
 
         if ($this->User->updatePassword($id, md5($password))) {
-            header("Location: /user.php");
+            header("Location: http://cs2.uco.edu/~gq001/su/user.php");
             exit(0);
         } else {
             exit("Could not update user password");
@@ -208,7 +208,7 @@ class FormController
     function verifySession($currSession)
     {
         if (!$this->UserSession->verifySession($currSession)) {
-            header("Location: index.php?logout=true");
+            header("Location: http://cs2.uco.edu/~gq001/su/index.php?logout=true");
             exit(0);
         }
         return $currSession;
@@ -226,7 +226,7 @@ class FormController
         $_SESSION["isError"] = true;
         $_SESSION["errorMsg"] = $err;
         http_response_code(400);
-        header("Location: /index.php?logout=true");
+        header("Location: http://cs2.uco.edu/~gq001/su/index.php?logout=true");
         exit($err);
     }
 

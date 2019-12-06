@@ -123,17 +123,15 @@ class User
 
     // search users in db
     public function searchUser($query)
-    {
-        $stmt = "SELECT user_id, firstname, lastname, U.role_id, role_name as role
+    {        $stmt = "SELECT user_id, firstname, lastname, U.role_id, role_name as role
                                         FROM \"User\" U
                                         JOIN  Role R on U.role_id = R.role_id
                                         WHERE user_id LIKE CONCAT(CONCAT('%', '$query'), '%')
-                                        OR firstname LIKE CONCAT(CONCAT('%', '$query'), '%')
-                                        OR lastname LIKE CONCAT(CONCAT('%', '$query'), '%')
-                                        OR role_name LIKE CONCAT(CONCAT('%', '$query'), '%')
+                                        OR regexp_like(firstname,'$query','i')
+                                        OR regexp_like(lastname,'$query','i')
+                                        OR regexp_like(role_name,'$query','i')
                                         ORDER BY user_id
                                         ";
-
         $result = execute_sql_in_oracle($stmt);
 
         $data = [];

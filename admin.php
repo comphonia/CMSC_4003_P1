@@ -14,7 +14,7 @@ $formController->verifySession($currSession);
 
 // if user is not an admin, send them to the student page
 if (!$formController->isAdmin()) {
-    header("Location: user.php?sessionid=" . $currSession);
+    header("Location: http://cs2.uco.edu/~gq001/su/user.php?sessionid=" . $currSession);
     exit(0);
 }
 ?>
@@ -37,13 +37,13 @@ if (!$formController->isAdmin()) {
 
 <body>
 <header>
-    <a href="/index.php?sessionid=<?php echo $currSession; ?>" style="text-decoration: none"><h2 class="title">
+    <a href="http://cs2.uco.edu/~gq001/su/index.php?sessionid=<?php echo $currSession; ?>" style="text-decoration: none"><h2 class="title">
             <span class="logo"><img src="assets/images/uni_logo.png"></span> Springfield University</h2>
     </a>
     <nav class="active">
         <ul>
-            <li><a href="/user.php?sessionid=<?php echo $currSession; ?>">Student</a></li>
-            <li><a href="/admin.php?sessionid=<?php echo $currSession; ?>" class="active">Administrator</a></li>
+            <li><a href="http://cs2.uco.edu/~gq001/su/user.php?sessionid=<?php echo $currSession; ?>">Student</a></li>
+            <li><a href="http://cs2.uco.edu/~gq001/su/admin.php?sessionid=<?php echo $currSession; ?>" class="active">Administrator</a></li>
         </ul>
     </nav>
 </header>
@@ -56,7 +56,7 @@ if (!$formController->isAdmin()) {
             <h2>Welcome, {$formController->userData["firstname"]} </h2>
             <p>Id: {$formController->userData["user_id"]}</p>
             <p class=\"\">Role: {$formController->userData["role"]}</p>
-            <a href=\"index.php?logout=true\" ><button class=\"btn btn-danger \">Logout</button></a>
+            <a href=\"http://cs2.uco.edu/~gq001/su/index.php?logout=true\" ><button class=\"btn btn-danger \">Logout</button></a>
             <button class=\"btn\" data-toggle=\"modal\" data-target=\"#modalPassword\">Change Password</button>
             "
             ?>
@@ -226,13 +226,13 @@ if (!$formController->isAdmin()) {
     function deleteUser(id) {
         let i = confirm("Delete user id " + id + "?");
         if (i == true)
-            window.location = "/admin.php?action=delete&id=" + id;
+            window.location = "http://cs2.uco.edu/~gq001/su/admin.php?action=delete&id=" + id;
     }
 
     function resetUserPwd(id) {
         let j = confirm("Reset password for user id " + id + "?");
         if (j == true)
-            window.location = "/admin.php?action=reset&id=" + id;
+            window.location = "http://cs2.uco.edu/~gq001/su/admin.php?action=reset&id=" + id;
     }
 
     function updateUserModal(_id, _firstname, _lastname, _role) {

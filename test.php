@@ -4,9 +4,9 @@ require "Models/utility_functions.php";
 $password = "c4ca4238a0b923820dcc509a6f75849b";
 $id =1;
 
-$stmt =  "SELECT user_id, firstname, lastname, U.role_id, role_name as role
+$stmt =  "SELECT user_id, firstname, lastname, U.role_id
                                         FROM \"User\" U
-                                        JOIN  Role R on U.role_id = R.role_id";
+                                        WHERE regexp_like(firstname,'ca','i')";
 
 $qry = execute_sql_in_oracle($stmt);
 $cursor = $qry["cursor"];

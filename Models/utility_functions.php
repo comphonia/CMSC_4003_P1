@@ -8,7 +8,7 @@ function execute_sql_in_oracle($sql) {
     //putenv("ORACLE_HOME=/home/oracle/OraHome1");
     //putenv("ORACLE_SID=orcl");
 
-    $connection = oci_connect ("admin", "pw", "localhost/XE");
+    $connection = oci_connect ("gq001", "snjaei", "gqiannew2:1521/pdborcl");
     if($connection == false){
         // failed to connect
         display_oracle_error_message(null);
